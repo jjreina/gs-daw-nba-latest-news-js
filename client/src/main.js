@@ -1,6 +1,7 @@
 import "./style.css";
 import { createNewsCards, createSourceFilter } from "./helpers/domHelper";
 import { api_sources, options_nba, url_nba } from "./api";
+import { parserToClass } from "./helpers/promiseHelper";
 
 // contenedor principal
 const divConatiner = document.querySelector(".container");
@@ -34,8 +35,9 @@ const fetchAndSetSources = async (url) => {
 const getNewsBySource = async (url, options) => {
   const response = await fetch(url, options);
   const news = await response.json();
+  const newsClasses = await parserToClass(news);
   containerCards.innerHTML = "";
-  containerCards.append(...createNewsCards(news));
+  containerCards.append(...createNewsCards(newsClasses));
   divConatiner.appendChild(containerCards);
 };
 
