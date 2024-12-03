@@ -33,12 +33,16 @@ const fetchAndSetSources = async (url) => {
 };
 
 const getNewsBySource = async (url, options) => {
-  const response = await fetch(url, options);
-  const news = await response.json();
-  const newsClasses = await parserToClass(news);
-  containerCards.innerHTML = "";
-  containerCards.append(...createNewsCards(newsClasses));
-  divConatiner.appendChild(containerCards);
+  try {
+    const response = await fetch(url, options);
+    const news = await response.json();
+    const newsClasses = await parserToClass(news);
+    containerCards.innerHTML = "";
+    containerCards.append(...createNewsCards(newsClasses));
+    divConatiner.appendChild(containerCards);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 // Cargamos el selector

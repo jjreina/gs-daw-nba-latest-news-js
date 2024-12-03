@@ -13,7 +13,8 @@ export const parserToClass = (newsLiteralObject) => {
       });
       resolve(newsClasses);
     } else {
-      const error = new Error();
+      let error = new Error("parserToClass");
+      error.message = "objerct is null or undefined";
       reject(error);
     }
   });
